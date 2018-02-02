@@ -1,60 +1,49 @@
+import my.company.steps.BaseSteps;
+import my.company.steps.MainSteps;
+import my.company.steps.RequestSteps;
+import my.company.steps.TravelInsuranceSteps;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import my.company.pages.MainPage;
-import my.company.pages.RequestPage;
-import my.company.pages.TravelInsurancePage;
+import ru.yandex.qatools.allure.annotations.Title;
 
-public class SberbankTest extends BaseTest{
+import java.util.HashMap;
+
+public class SberbankTest extends BaseSteps{
+    MainSteps mainSteps = new MainSteps();
+    TravelInsuranceSteps travelInsuranceSteps = new TravelInsuranceSteps();
+    RequestSteps requestSteps = new RequestSteps();
+    HashMap <String, String> testData = new HashMap<>();
+
+    @Title("Заявка на страхование в Сбербанке")
     @Test
     public void testSberbank(){
-        MainPage mainPage = new MainPage();
-        mainPage.selectSection("Застраховать себя  и имущество");
-        mainPage.waitElement(mainPage.getTravelInsuranceElement("Страхование путешественников"));
-        mainPage.travelInsurance("Страхование путешественников");
+        testData.put("фамилия застрахованного", "Ivanov");
+        testData.put("имя застрахованного", "Ivan");
+        testData.put("дата рождения застрахованного", "01.01.1999");
+        testData.put("фамилия", "Петров");
+        testData.put("имя", "Петр");
+        testData.put("отчество", "Петрович");
+        testData.put("день рождения", "");
+        testData.put("серия паспорта", "1234");
+        testData.put("номер паспорта", "222222");
+        testData.put("дата выдачи", "14.03.2009");
+        testData.put("место выдачи", "Трололо");
 
-        TravelInsurancePage travelInsurancePage = new TravelInsurancePage();
-        travelInsurancePage.waitElement(travelInsurancePage.getTitle());
-        travelInsurancePage.checkTitleErrorMessage("Страхование путешественников");
-        travelInsurancePage.checkOutOnline();
-        travelInsurancePage.switchWindow();
+        mainSteps.selectSection("Застраховать себя  и имущество");
+        mainSteps.waitElement(mainSteps.getTravelInsuranceElement("Страхование путешественников"));
+        mainSteps.travelInsurance("Страхование путешественников");
 
-        RequestPage requestPage = new RequestPage(driver);
-        requestPage.chooseSum("Минимальная");
-        requestPage.execute();
+        travelInsuranceSteps.waitElement(travelInsuranceSteps.getTitle());
+        travelInsuranceSteps.checkTitleErrorMessage("Страхование путешественников");
+        travelInsuranceSteps.checkOutOnline();
+        travelInsuranceSteps.switchWindow();
 
-        requestPage.fillField("фамилия застрахованного", "Ivanov");
-        requestPage.fillField("имя застрахованного", "Ivan");
-        requestPage.fillField("дата рождения застрахованного", "01.01.1999");
-        requestPage.fillField("фамилия", "Петров");
-        requestPage.fillField("имя", "Петр");
-        requestPage.fillField("отчество", "Петрович");
-        requestPage.fillField("день рождения", "01.01.1989");
-        requestPage.fillField("серия паспорта", "1234");
-        requestPage.fillField("номер паспорта", "222222");
-        requestPage.fillField("дата выдачи", "14.03.2009");
-        requestPage.fillField("место выдачи", "Трололо");
-        requestPage.chooseGender("мужской");
-
-        requestPage.checkFields("фамилия застрахованного","Ivanov");
-        requestPage.checkFields("имя застрахованного","Ivan");
-        requestPage.checkFields("дата рождения застрахованного", "01.01.1999");
-        requestPage.checkFields("фамилия", "Петров");
-        requestPage.checkFields("имя", "Петр");
-        requestPage.checkFields("отчество", "Петрович");
-        requestPage.checkFields("день рождения", "");
-        requestPage.checkFields("серия паспорта", "1234");
-        requestPage.checkFields("номер паспорта", "222222");
-        requestPage.checkFields("дата выдачи", "14.03.2009");
-        requestPage.checkFields("место выдачи", "Трололо");
-
-        requestPage.clickContinue();
-        requestPage.checkErrorMessage("Заполнены не все обязательные поля");
-
-    }
-
-    public void fillField(By locator, String value){
-        driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(value);
+        requestSteps.chooseSum("Минимальная");
+        requestSteps.execute();
+        requestSteps.fillFields(testData);
+        requestSteps.chooseGender("мужской");
+        requestSteps.checkFields(testData);
+        requestSteps.clickContinue();
+        requestSteps.checkErrorMessage("Заполнены не все обязательные поля");
     }
 
 }

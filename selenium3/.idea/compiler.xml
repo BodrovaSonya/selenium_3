@@ -14,7 +14,7 @@
     <bytecodeTargetLevel>
       <module name="selenium1" target="1.5" />
       <module name="selenium2" target="1.7" />
-      <module name="selenium3" target="1.7" />
+      <module name="selenium3" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

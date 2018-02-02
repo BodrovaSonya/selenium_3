@@ -3,6 +3,8 @@ package my.company.steps;
 import my.company.pages.RequestPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.util.HashMap;
+
 /**
  * Created by sonya on 31.01.2018.
  */
@@ -23,6 +25,11 @@ public class RequestSteps {
         new RequestPage().fillField(fieldName,value);
     }
 
+    @Step("поля заполнены")
+    public void fillFields(HashMap<String,String> fields){
+        fields.forEach((k,v)->fillField(k,v));
+    }
+
     @Step ("выбран пол {0}")
     public void chooseGender (String sex){
         new RequestPage().chooseGender(sex);
@@ -34,8 +41,13 @@ public class RequestSteps {
     }
 
     @Step ("проверено значение поля {0} должно иметь значение {1}")
-    public void checkFields (String field, String expected){
-        new RequestPage().checkFields(field,expected);
+    public void checkField (String field, String expected){
+        new RequestPage().checkField(field,expected);
+    }
+
+    @Step("поля проверены")
+    public void checkFields(HashMap<String, String>hashMap){
+        hashMap.forEach((k,v)->checkField(k,v));
     }
 
     @Step("выбрано продолжение оформления заявки")

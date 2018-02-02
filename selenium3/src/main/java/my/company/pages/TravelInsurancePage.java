@@ -1,5 +1,6 @@
 package my.company.pages;
 
+import my.company.steps.BaseSteps;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,7 +20,7 @@ public class TravelInsurancePage extends BasePage {
     WebElement image;
 
     public TravelInsurancePage () {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(BaseSteps.getDriver(),this);
     }
 
     public WebElement getTitle(){
@@ -37,11 +38,11 @@ public class TravelInsurancePage extends BasePage {
     }
 
     public void switchWindow () {
-        String parentWindow = driver.getWindowHandle();
-        Set<String> handles =  driver.getWindowHandles();
+        String parentWindow = BaseSteps.getDriver().getWindowHandle();
+        Set<String> handles =  BaseSteps.getDriver().getWindowHandles();
         for(String windowHandle  : handles) {
             if (!windowHandle.equals(parentWindow)) {
-                driver.switchTo().window(windowHandle);
+                BaseSteps.getDriver().switchTo().window(windowHandle);
             }
         }
     }

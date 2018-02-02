@@ -27,4 +27,9 @@ public class TravelInsuranceSteps {
     public void switchWindow () {
         new TravelInsurancePage().switchWindow();
     }
+
+    @Step ("ожидание элемента {0}")
+    public void waitElement (WebElement element) {
+        new TravelInsurancePage().waitElement(element);
+    }
 }

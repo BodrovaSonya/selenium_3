@@ -22,4 +22,9 @@ public class MainSteps {
     public WebElement getTravelInsuranceElement (String name) {
         return new MainPage().getTravelInsuranceElement(name);
     }
+
+    @Step ("ожидание элемента {0}")
+    public void waitElement (WebElement element) {
+        new MainPage().waitElement(element);
+    }
 }

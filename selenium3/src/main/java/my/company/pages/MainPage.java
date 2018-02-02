@@ -1,5 +1,6 @@
 package my.company.pages;
 
+import my.company.steps.BaseSteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +14,8 @@ public class MainPage extends BasePage{
     @FindBy(xpath = "//div[contains(@class,'bp-area header-container')]")
     WebElement menu;
 
-    public MainPage (/*WebDriver driver*/) {
-        PageFactory.initElements(driver, this);
+    public MainPage () {
+        PageFactory.initElements(BaseSteps.getDriver(), this);
         //this.driver = driver;
     }
 

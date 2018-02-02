@@ -1,5 +1,6 @@
 package my.company.pages;
 
+import my.company.steps.BaseSteps;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -59,7 +60,8 @@ public class RequestPage extends BasePage {
     WebElement errorMessage;
 
     public RequestPage () {
-        PageFactory.initElements(driver,this);
+
+        PageFactory.initElements(BaseSteps.getDriver(),this);
     }
 
     public void chooseSum (String sum) { // Минимальная
@@ -131,7 +133,7 @@ public class RequestPage extends BasePage {
                 actualValue.contains(error));
     }
 
-    public void checkFields (String field, String expected){
+    public void checkField (String field, String expected){
         switch (field){
             case "фамилия застрахованного":
                 Assert.assertEquals(expected, surname1.getAttribute("value"));
